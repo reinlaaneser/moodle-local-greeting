@@ -30,6 +30,5 @@ $string['pluginname'] = 'Greeting';
 $string['greetingloggedinuser'] = 'Greetings, {$a}.';
 // $string['greetinguser'] = 'Greetings, user.';
 
-
 $string['greetinguseret'] = 'Tere, {$a}.';
 $string['greetinguserru'] = 'Привет, {$a}.';
