@@ -12,24 +12,42 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>;.
 
 /**
- * Plugin strings are defined here.
+ * Library functions for the local_greeting plugin.
  *
  * @package     local_greeting
- * @category    string
  * @copyright   2026 Rein Laaneser <rein.laaneser@outlook.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+/**
+ * Get greeting text for the given user.
+ *
+ * @param stdClass|null $user User object or null.
+ * @return string Greeting text.
+ */
+function local_greeting_get_greeting($user) {
+    if ($user == null) {
+        return get_string('greetinguser', 'local_greeting');
+    }
 
-$string['pluginname'] = 'Greeting';
+    $country = $user->country;
 
-$string['greetingloggedinuser'] = 'Greetings, {$a}.';
-// $string['greetinguser'] = 'Greetings, user.';
+    switch ($country) {
+        case 'EE':
+            $langstr = 'greetinguseret';
+            break;
 
+        case 'RU':
+            $langstr = 'greetinguserru';
+            break;
 
-$string['greetinguseret'] = 'Tere, {$a}.';
-$string['greetinguserru'] = 'Привет, {$a}.';
+        default:
+            $langstr = 'greetingloggedinuser';
+            break;
+    }
+
+    return get_string($langstr, 'local_greeting', fullname($user));
+}
