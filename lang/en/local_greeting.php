@@ -34,3 +34,5 @@ $string['greetinguseret'] = 'Tere, {$a}.';
 $string['greetinguserru'] = 'Привет, {$a}.';
 
 $string['yourmessage'] = 'Your message';
+
+$string['postedby'] = 'Posted by {$a}.';

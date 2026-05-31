@@ -49,10 +49,8 @@ function xmldb_local_greeting_upgrade($oldversion) {
         // Define key greeting-user-foreign-key to be added to local_greeting_messages.
         $key = new xmldb_key('greeting-user-foreign-key', XMLDB_KEY_FOREIGN, ['userid'], 'user', ['id']);
 
-        // Conditionally launch add key greeting-user-foreign-key.
-        if (!$dbman->key_exists($table, $key)) {
-            $dbman->add_key($table, $key);
-        }
+        // Launch add key greeting-user-foreign-key.
+        $dbman->add_key($table, $key);
 
         // Local greeting savepoint reached.
         upgrade_plugin_savepoint(true, 2026053002, 'local', 'greeting');

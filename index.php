@@ -64,7 +64,15 @@ echo $OUTPUT->render_from_template('local_greeting/greeting_message', $templated
 
 $messageform->display();
 
-$messages = $DB->get_records('local_greeting_messages');
+$userfields = \core_user\fields::for_name()->with_identity($context);
+$userfieldssql = $userfields->get_sql('u');
+
+$sql = "SELECT m.id, m.message, m.timecreated, m.userid {$userfieldssql->selects}
+          FROM {local_greetings_messages} m
+     LEFT JOIN {user} u ON u.id = m.userid
+      ORDER BY timecreated DESC";
+
+$messages = $DB->get_records_sql($sql);
 
 $templatedata = ['messages' => array_values($messages)];
 echo $OUTPUT->render_from_template('local_greeting/messages', $templatedata);
