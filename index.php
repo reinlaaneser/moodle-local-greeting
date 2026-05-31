@@ -32,11 +32,12 @@ $PAGE->set_pagelayout('standard');
 $PAGE->set_title(get_string('pluginname', 'local_greeting'));
 $PAGE->set_heading(get_string('pluginname', 'local_greeting'));
 
-// $usergreeting = 'Greetings, ' . fullname($USER);
+if (isloggedin()) {
+    $usergreeting = local_greeting_get_greeting($USER);
+} else {
+    $usergreeting = get_string('greetinguser', 'local_greeting');
+}
 
-// $usergreeting = get_string('greetingloggedinuser', 'local_greeting', fullname($USER));
-
-$usergreeting = local_greeting_get_greeting($USER);
 
 echo $OUTPUT->header();
 
