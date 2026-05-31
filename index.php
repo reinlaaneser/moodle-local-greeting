@@ -68,7 +68,7 @@ $userfields = \core_user\fields::for_name()->with_identity($context);
 $userfieldssql = $userfields->get_sql('u');
 
 $sql = "SELECT m.id, m.message, m.timecreated, m.userid {$userfieldssql->selects}
-          FROM {local_greetings_messages} m
+          FROM {local_greeting_messages} m
      LEFT JOIN {user} u ON u.id = m.userid
       ORDER BY timecreated DESC";
 
