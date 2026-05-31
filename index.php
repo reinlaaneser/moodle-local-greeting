@@ -50,6 +50,8 @@ if ($data = $messageform->get_data()) {
         $record->message = $message;
         $record->timecreated = time();
 
+        $record->userid = $USER->id;
+
         $DB->insert_record('local_greeting_messages', $record);
     }
 }
