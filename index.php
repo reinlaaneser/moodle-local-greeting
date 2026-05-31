@@ -42,8 +42,19 @@ require_once(__DIR__ . '/classes/form/message_form.php');
 
 $messageform = new \local_greeting\form\message_form();
 
-echo $OUTPUT->header();
+if ($data = $messageform->get_data()) {
+    $message = required_param('message', PARAM_TEXT);
 
+    if (!empty($message)) {
+        $record = new stdClass;
+        $record->message = $message;
+        $record->timecreated = time();
+
+        $DB->insert_record('local_greeting_messages', $record);
+    }
+}
+
+echo $OUTPUT->header();
 
 $templatedata = ['usergreeting' => $usergreeting];
 
@@ -51,11 +62,9 @@ echo $OUTPUT->render_from_template('local_greeting/greeting_message', $templated
 
 $messageform->display();
 
-if ($data = $messageform->get_data()) {
+$messages = $DB->get_records('local_greeting_messages');
 
-    $message = required_param('message', PARAM_TEXT);
-    echo $OUTPUT->heading($message, 4);
-
-}
+$templatedata = ['messages' => array_values($messages)];
+echo $OUTPUT->render_from_template('local_greeting/messages', $templatedata);
 
 echo $OUTPUT->footer();
