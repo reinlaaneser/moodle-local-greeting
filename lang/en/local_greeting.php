@@ -32,3 +32,5 @@ $string['greetinguser'] = 'Greetings, user.';
 
 $string['greetinguseret'] = 'Tere, {$a}.';
 $string['greetinguserru'] = 'Привет, {$a}.';
+
+$string['yourmessage'] = 'Your message';

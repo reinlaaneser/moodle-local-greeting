@@ -17,7 +17,7 @@
 /**
  * Main file to view greetings
  *
- * @package     local_greetings
+ * @package     local_greeting
  * @copyright   2026 Rein Laaneser <rein.laaneser@outlook.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -38,6 +38,9 @@ if (isloggedin()) {
     $usergreeting = get_string('greetinguser', 'local_greeting');
 }
 
+require_once(__DIR__ . '/classes/form/message_form.php');
+
+$messageform = new \local_greeting\form\message_form();
 
 echo $OUTPUT->header();
 
@@ -45,5 +48,14 @@ echo $OUTPUT->header();
 $templatedata = ['usergreeting' => $usergreeting];
 
 echo $OUTPUT->render_from_template('local_greeting/greeting_message', $templatedata);
+
+$messageform->display();
+
+if ($data = $messageform->get_data()) {
+
+    $message = required_param('message', PARAM_TEXT);
+    echo $OUTPUT->heading($message, 4);
+
+}
 
 echo $OUTPUT->footer();
